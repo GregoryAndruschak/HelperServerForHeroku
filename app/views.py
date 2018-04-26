@@ -136,10 +136,10 @@ def get_servers():
 def login_from_client():
     username = request.args['username']
     password = request.args['password']
-    if not User.query.filter_by(username=username]).first()
+    if not User.query.filter_by(username=username).first()
         return 'Wrong username'
     else:
-        user = User.query.filter_by(username=username]).first()
+        user = User.query.filter_by(username=username).first()
         if not user.is_correct_password(password):
             return 'Wrong password'
         else:
