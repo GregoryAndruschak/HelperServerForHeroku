@@ -93,15 +93,14 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route('/become_online', methods=['POST', 'GET'])
+@app.route('/become_online', methods=['POST'])
 def become_online():
     global servers
     if request.remote_addr not in servers:
         servers.append(request.remote_addr)
-    return redirect('/')
 
 
-@app.route('/become_offline', methods=['POST', 'GET'])
+@app.route('/become_offline', methods=['POST'])
 def become_offline():
     global servers
     new_s = []
@@ -109,7 +108,6 @@ def become_offline():
         if ip != request.remote_addr:
             new_s.append(ip)
     servers = new_s
-    return redirect('/')
 
 
 def set_positions(h, user):
