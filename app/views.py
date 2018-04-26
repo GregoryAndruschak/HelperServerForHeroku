@@ -129,7 +129,7 @@ def set_positions(h, user):
 @app.route('/get_servers', methods=['POST'])
 def get_servers():
     global servers
-    return json.dump(servers)
+    return json.dumps(servers)
 
 
 @app.route('/login_from_client', methods=['POST'])
