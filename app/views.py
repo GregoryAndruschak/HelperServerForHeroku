@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, request, session
 from app.forms import LoginForm, SignupForm
 from app.models import User, Highscore
 from app import db
+import json
 
 global servers
 servers = []
@@ -123,3 +124,23 @@ def set_positions(h, user):
     session['winsalltime_p'] = sorted(h, key=lambda hs: hs.winsalltime).index(user) + 1
     session['winslastmonth_p'] = sorted(h, key=lambda hs: hs.winslastmonth).index(user) + 1
     session['winslastweek_p'] = sorted(h, key=lambda hs: hs.winslastweek).index(user) + 1
+
+
+@app.route('/get_servers', methods=['POST'])
+def get_servers():
+    global servers
+    return json.dump(servers)
+
+
+@app.route('/login_from_client', methods=['POST'])
+def login_from_client():
+    username = request.args['username']
+    password = request.args['password']
+    if not User.query.filter_by(username=username]).first()
+        return 'Wrong username'
+    else:
+        user = User.query.filter_by(username=username]).first()
+        if not user.is_correct_password(password):
+            return 'Wrong password'
+        else:
+            return get_servers()
