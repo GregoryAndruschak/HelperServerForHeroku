@@ -15,8 +15,7 @@ def index():
     if not session.get('logged_in') or session.get('logged_in') is None:
         return redirect('/login')
     else:
-        global servers
-        return render_template('index.html', session=session, servers=servers)
+        return render_template('index.html', session=session, servers=get_servers)
 
 
 @app.route('/login', methods=['POST', 'GET'])
