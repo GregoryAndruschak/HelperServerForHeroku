@@ -137,10 +137,10 @@ def get_servers():
     return json.dumps(servers)
 
 
-@app.route('/login_from_client', methods=['POST'])
+@app.route('/login_from_client', methods=['POST', 'GET'])
 def login_from_client():
-    username = request.args['username']
-    password = request.args['password']
+    username = request.args.get('username')
+    password = request.args.get('password')
     if not User.query.filter_by(username=username).first():
         return 'Wrong username'
     else:
