@@ -94,23 +94,26 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route('/become_online', methods=['POST'])
+@app.route('/become_online', methods=['POST', 'GET'])
 def become_online():
     global servers
-    if request.args['ip'] not in servers:
-        servers.append(request.args['ip'])
-    return 200
+    ip = request.args.get('ip')
+    print(str(ip))
+    if ip not in servers:
+        servers.append(ip)
+    return json.dumps({'success': True}), 200
 
 
-@app.route('/become_offline', methods=['POST'])
+@app.route('/become_offline', methods=['POST', 'GET'])
 def become_offline():
     global servers
+    ip = request.args.get('ip')
     new_s = []
-    for ip in servers:
-        if ip != request.args['ip']:
-            new_s.append(ip)
+    for i in servers:
+        if i != ip:
+            new_s.append(i)
     servers = new_s
-    return 200
+    return json.dumps({'success': True}), 200
 
 
 def set_positions(h, user):
