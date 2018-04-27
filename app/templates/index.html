@@ -26,6 +26,20 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">{{ session['username'] }} <span class="sr-only">(current)</span></a>
           </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Servers online
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if servers|length == 0 %}
+            <a class="dropdown-item">No servers online</a>
+            {% else %}
+                {% for s in servers %}
+                <a class="dropdown-item">{{ s }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+      </li>
         </ul>
           <a href="/logout"><button type="button" class="btn btn-outline-danger">Logout</button></a>
       </div>
