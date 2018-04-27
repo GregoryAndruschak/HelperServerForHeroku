@@ -97,8 +97,8 @@ def signup():
 @app.route('/become_online', methods=['POST'])
 def become_online():
     global servers
-    if request.environ['REMOTE_ADDR'] not in servers:
-        servers.append(request.environ['REMOTE_ADDR'])
+    if request.args['ip'] not in servers:
+        servers.append(request.args['ip'])
     return 200
 
 
@@ -107,7 +107,7 @@ def become_offline():
     global servers
     new_s = []
     for ip in servers:
-        if ip != request.environ['REMOTE_ADDR']:
+        if ip != request.args['ip']:
             new_s.append(ip)
     servers = new_s
     return 200
